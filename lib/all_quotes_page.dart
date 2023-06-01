@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import "quote_util.dart";
 
 class AllQuoteListPage extends StatefulWidget {
   const AllQuoteListPage({Key? key}) : super(key: key);
@@ -47,10 +48,16 @@ class _AllQuoteListPageState extends State<AllQuoteListPage> {
           final quote = quotes[index];
           final quoteContent = quote['quote_content'];
           final characterName = quote['character_name'];
-          return ListTile(
-            contentPadding: const EdgeInsets.all(16),
-            title: Text(quoteContent),
-            subtitle: Text(characterName),
+          final quoteId = quote['quote_id'];
+          return GestureDetector(
+            onTap: () {
+              navigateToQuotePage(context, quoteId);
+            },
+            child: ListTile(
+              contentPadding: const EdgeInsets.all(16),
+              title: Text(quoteContent),
+              subtitle: Text(characterName),
+            ),
           );
         },
       ),

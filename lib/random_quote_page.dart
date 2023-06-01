@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quote/quote_page.dart';
+import 'package:quote/quote_util.dart';
 
 class RandomQuotePage extends StatelessWidget {
   final String quoteContent;
@@ -15,15 +15,6 @@ class RandomQuotePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void navigateToQuotePage(int id) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => QuotePage(quoteId: id),
-        ),
-      );
-    }
-
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -32,7 +23,7 @@ class RandomQuotePage extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              navigateToQuotePage(quoteId);
+              navigateToQuotePage(context, quoteId);
             },
             child: Text(
               quoteContent,
