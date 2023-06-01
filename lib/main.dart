@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'random_quote_page.dart';
 import 'all_quotes_page.dart';
 import 'favorite_quotes_page.dart';
@@ -17,6 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
   String quoteContent = '';
   String characterName = '';
   int quoteId = 0;
+  final CounterController counterController = Get.put(CounterController());
+
+  CounterController get to => Get.find();
 
   @override
   void initState() {
@@ -113,5 +117,13 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       home: HomeScreen(),
     );
+  }
+}
+
+class CounterController extends GetxController {
+  RxInt count = 0.obs;
+
+  void increment() {
+    count.value++;
   }
 }
