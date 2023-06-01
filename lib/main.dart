@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:quote/quote_page.dart';
 import 'random_quote_page.dart';
 import 'all_quotes_page.dart';
+import 'favorite_quotes_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -62,6 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           // 두 번째 탭: 전체 보기
           const AllQuoteListPage(),
+          // 세 번째 탭: 즐겨찾기 보기
+          const FavoriteQuotesPage(), // 추가한 부분
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -79,6 +81,11 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: '전체 보기',
+          ),
+          // 즐겨찾기 아이콘 및 라벨
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: '즐겨찾기',
           ),
         ],
       ),
