@@ -23,6 +23,10 @@ class _FavoriteQuotesPageState extends State<FavoriteQuotesPage> {
 
   Future<void> _initialize() async {
     _prefs = await SharedPreferences.getInstance();
+    _updateFavoriteQuotes();
+  }
+
+  Future<void> _updateFavoriteQuotes() async {
     final keys = _prefs.getKeys();
     _favoriteQuoteIds = keys
         .where((key) => key.startsWith('quote_') && _prefs.getBool(key) == true)
@@ -37,14 +41,24 @@ class _FavoriteQuotesPageState extends State<FavoriteQuotesPage> {
       appBar: AppBar(
         title: const Text('Favorite Quotes'),
       ),
-      body: ListView.builder(
-        itemCount: _favoriteQuoteIds.length,
-        itemBuilder: (context, index) {
-          final quoteId = _favoriteQuoteIds[index];
-          return ListTile(
-            title: Text('Quote ID: $quoteId'),
-          );
-        },
+      body: Column(
+        children: [
+          ElevatedButton(
+            onPressed: _updateFavoriteQuotes,
+            child: const Text('Refresh'),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _favoriteQuoteIds.length,
+              itemBuilder: (context, index) {
+                final quoteId = _favoriteQuoteIds[index];
+                return ListTile(
+                  title: Text('Quote ID: $quoteId'),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
