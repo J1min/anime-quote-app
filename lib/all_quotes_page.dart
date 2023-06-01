@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
-class AllQuotesPage extends StatefulWidget {
-  const AllQuotesPage({Key? key}) : super(key: key);
+class AllQuoteListPage extends StatefulWidget {
+  const AllQuoteListPage({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _AllQuotesPageState createState() => _AllQuotesPageState();
+  _AllQuoteListPageState createState() => _AllQuoteListPageState();
 }
 
-class _AllQuotesPageState extends State<AllQuotesPage> {
+class _AllQuoteListPageState extends State<AllQuoteListPage> {
   List<dynamic> quotes = [];
 
   @override
