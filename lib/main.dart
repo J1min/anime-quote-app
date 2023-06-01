@@ -111,15 +111,20 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          fetchQuote();
+        },
+        child: const Icon(Icons.refresh),
+      ),
     );
   }
 }
 
 class AllQuotesPage extends StatefulWidget {
-  const AllQuotesPage({super.key});
+  const AllQuotesPage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _AllQuotesPageState createState() => _AllQuotesPageState();
 }
 
@@ -153,13 +158,18 @@ class _AllQuotesPageState extends State<AllQuotesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: quotes.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(quotes[index]),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('All Quotes'),
+      ),
+      body: ListView.builder(
+        itemCount: quotes.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(quotes[index]),
+          );
+        },
+      ),
     );
   }
 }
