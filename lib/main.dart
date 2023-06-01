@@ -6,7 +6,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +17,9 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _HomeScreenState createState() => _HomeScreenState();
 }
 
@@ -58,36 +57,41 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Random Anime Quote'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: () {
-                print('tapped');
-              },
-              child: Text(
-                quoteContent,
+      body: IndexedStack(
+        index: _currentIndex,
+        children: [
+          // 첫 번째 탭: 랜덤 보기
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  print('tapped');
+                },
+                child: Text(
+                  quoteContent,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                '- $characterName -',
                 style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  fontStyle: FontStyle.italic,
                 ),
                 textAlign: TextAlign.center,
               ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              '- $characterName -',
-              style: const TextStyle(
-                fontSize: 16,
-                fontStyle: FontStyle.italic,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
+            ],
+          ),
+          // 두 번째 탭: 전체 보기
+          AllQuotesPage(),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -107,6 +111,55 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class AllQuotesPage extends StatefulWidget {
+  const AllQuotesPage({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _AllQuotesPageState createState() => _AllQuotesPageState();
+}
+
+class _AllQuotesPageState extends State<AllQuotesPage> {
+  List<String> quotes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAllQuotes();
+  }
+
+  Future<void> fetchAllQuotes() async {
+    final dio = Dio();
+
+    try {
+      final response = await dio.get(
+        'http://leehj050211.kro.kr/quote/all',
+        options: Options(responseType: ResponseType.json),
+      );
+      final data = response.data['list'];
+      final List<String> fetchedQuotes =
+          List<String>.from(data.map((quote) => quote['quote_content']));
+      setState(() {
+        quotes = fetchedQuotes;
+      });
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: quotes.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(quotes[index]),
+        );
+      },
     );
   }
 }
