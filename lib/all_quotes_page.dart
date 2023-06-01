@@ -42,7 +42,7 @@ class _AllQuoteListPageState extends State<AllQuoteListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('All Quotes'),
+        title: const Text('모든 명언'),
       ),
       body: ListView.builder(
         itemCount: quotes.length,

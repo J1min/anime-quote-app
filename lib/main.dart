@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: _currentIndex == 0
           ? AppBar(
-              title: const Text('Random Anime Quote'),
+              title: const Text('랜덤 명언'),
             )
           : null,
       body: IndexedStack(

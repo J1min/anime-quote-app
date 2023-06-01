@@ -61,7 +61,7 @@ class _QuotePageState extends State<QuotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quote Details'),
+        title: const Text('명언 상세'),
       ),
       body: FutureBuilder(
         future: _fetchQuote(widget.quoteId),

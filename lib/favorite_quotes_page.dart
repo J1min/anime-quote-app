@@ -57,7 +57,7 @@ class _FavoriteQuotesPageState extends State<FavoriteQuotesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favorite Quotes'),
+        title: const Text('내가 좋아하는 명언'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _updateFavoriteQuotes,
