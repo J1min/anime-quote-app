@@ -103,18 +103,26 @@ class _QuotePageState extends State<QuotePage> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 20),
-                FloatingActionButton(
-                  onPressed: () {
-                    _copyToClipboard(quoteLink);
-                  },
-                  child: const Icon(Icons.share),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: _toggleFavorite,
-                  child: Text(_isFavorite ? '즐겨찾기 해제' : '즐겨찾기 등록'),
-                ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FloatingActionButton(
+                      onPressed: () {
+                        _copyToClipboard(quoteLink);
+                      },
+                      child: const Icon(Icons.share),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    FloatingActionButton(
+                        onPressed: _toggleFavorite,
+                        child: _isFavorite
+                            ? const Icon(Icons.star)
+                            : const Icon(Icons.star_border)),
+                  ],
+                )
               ],
             ),
           );
