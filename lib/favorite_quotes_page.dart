@@ -1,19 +1,19 @@
-// favorite_quote_page.dart
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:quote/quote_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoriteQuotesPage extends StatefulWidget {
   const FavoriteQuotesPage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _FavoriteQuotesPageState createState() => _FavoriteQuotesPageState();
 }
 
 class _FavoriteQuotesPageState extends State<FavoriteQuotesPage> {
+  final dio = Dio();
   late SharedPreferences _prefs;
-  List<int> _favoriteQuoteIds = [];
+  List<Map<String, dynamic>> _favoriteQuotes = [];
 
   @override
   void initState() {
@@ -28,11 +28,28 @@ class _FavoriteQuotesPageState extends State<FavoriteQuotesPage> {
 
   Future<void> _updateFavoriteQuotes() async {
     final keys = _prefs.getKeys();
-    _favoriteQuoteIds = keys
-        .where((key) => key.startsWith('quote_') && _prefs.getBool(key) == true)
-        .map((key) => int.parse(key.split('_')[1]))
-        .toList();
+    _favoriteQuotes = [];
+    for (final key in keys) {
+      if (key.startsWith('quote_') && _prefs.getBool(key) == true) {
+        final quoteId = int.parse(key.split('_')[1]);
+        final quote = await fetchQuote(quoteId);
+        final quoteData = {
+          'quoteId': quoteId,
+          'quoteContent': quote['quote_content'],
+          'characterName': quote['character_name']
+        };
+        _favoriteQuotes.add(quoteData);
+      }
+    }
     setState(() {});
+  }
+
+  Future<Map<String, dynamic>> fetchQuote(int id) async {
+    final response = await dio.get(
+      'http://anime-quote.kro.kr/quote/$id',
+      options: Options(responseType: ResponseType.json),
+    );
+    return response.data['quote'];
   }
 
   @override
@@ -41,24 +58,28 @@ class _FavoriteQuotesPageState extends State<FavoriteQuotesPage> {
       appBar: AppBar(
         title: const Text('Favorite Quotes'),
       ),
-      body: Column(
-        children: [
-          ElevatedButton(
-            onPressed: _updateFavoriteQuotes,
-            child: const Text('Refresh'),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _favoriteQuoteIds.length,
-              itemBuilder: (context, index) {
-                final quoteId = _favoriteQuoteIds[index];
-                return ListTile(
-                  title: Text('Quote ID: $quoteId'),
-                );
-              },
+      floatingActionButton: FloatingActionButton(
+        onPressed: _updateFavoriteQuotes,
+        child: const Icon(Icons.refresh),
+      ),
+      body: ListView.builder(
+        itemCount: _favoriteQuotes.length,
+        itemBuilder: (context, index) {
+          final quote = _favoriteQuotes[index];
+          print(quote);
+          final quoteId = quote['quoteId'];
+          final quoteContent = quote['quoteContent'];
+          final characterName = quote['characterName'];
+          return GestureDetector(
+            onTap: () {
+              navigateToQuotePage(context, quoteId);
+            },
+            child: ListTile(
+              title: Text(quoteContent),
+              subtitle: Text('- $characterName -'),
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
