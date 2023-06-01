@@ -25,8 +25,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
-  String quoteContent = 'dd';
-  String characterName = 'dd';
+  String quoteContent = '';
+  String characterName = '';
 
   @override
   void initState() {
@@ -55,7 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Random Anime Quote'),
+        title:
+            Text(_currentIndex == 0 ? 'Random Anime Quote' : 'All Anime Quote'),
       ),
       body: IndexedStack(
         index: _currentIndex,
@@ -111,12 +112,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          fetchQuote();
-        },
-        child: const Icon(Icons.refresh),
-      ),
+      floatingActionButton: _currentIndex == 0
+          ? FloatingActionButton(
+              onPressed: () {
+                fetchQuote();
+              },
+              child: const Icon(Icons.refresh),
+            )
+          : null,
     );
   }
 }
@@ -158,18 +161,13 @@ class _AllQuotesPageState extends State<AllQuotesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('All Quotes'),
-      ),
-      body: ListView.builder(
-        itemCount: quotes.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(quotes[index]),
-          );
-        },
-      ),
+    return ListView.builder(
+      itemCount: quotes.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(quotes[index]),
+        );
+      },
     );
   }
 }
