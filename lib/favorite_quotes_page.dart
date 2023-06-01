@@ -7,6 +7,7 @@ class FavoriteQuotesPage extends StatefulWidget {
   const FavoriteQuotesPage({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _FavoriteQuotesPageState createState() => _FavoriteQuotesPageState();
 }
 
@@ -66,7 +67,6 @@ class _FavoriteQuotesPageState extends State<FavoriteQuotesPage> {
         itemCount: _favoriteQuotes.length,
         itemBuilder: (context, index) {
           final quote = _favoriteQuotes[index];
-          print(quote);
           final quoteId = quote['quoteId'];
           final quoteContent = quote['quoteContent'];
           final characterName = quote['characterName'];
