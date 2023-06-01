@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
           // 첫 번째 탭: 랜덤 보기
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               GestureDetector(
                 onTap: () {
@@ -91,8 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
+
           // 두 번째 탭: 전체 보기
-          AllQuotesPage(),
+          const AllQuotesPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
