@@ -9,6 +9,7 @@ class QuotePage extends StatefulWidget {
   const QuotePage({Key? key, required this.quoteId}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _QuotePageState createState() => _QuotePageState();
 }
 
