@@ -54,10 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:
-            Text(_currentIndex == 0 ? 'Random Anime Quote' : 'All Anime Quote'),
-      ),
+      appBar: _currentIndex == 0
+          ? AppBar(
+              title: const Text('Random Anime Quote'),
+            )
+          : null,
       body: IndexedStack(
         index: _currentIndex,
         children: [
@@ -132,7 +133,7 @@ class AllQuotesPage extends StatefulWidget {
 }
 
 class _AllQuotesPageState extends State<AllQuotesPage> {
-  List<String> quotes = [];
+  List<dynamic> quotes = [];
 
   @override
   void initState() {
@@ -149,10 +150,8 @@ class _AllQuotesPageState extends State<AllQuotesPage> {
         options: Options(responseType: ResponseType.json),
       );
       final data = response.data['list'];
-      final List<String> fetchedQuotes =
-          List<String>.from(data.map((quote) => quote['quote_content']));
       setState(() {
-        quotes = fetchedQuotes;
+        quotes = data;
       });
     } catch (e) {
       throw Exception(e);
@@ -161,13 +160,23 @@ class _AllQuotesPageState extends State<AllQuotesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: quotes.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(quotes[index]),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('All Quotes'),
+      ),
+      body: ListView.builder(
+        itemCount: quotes.length,
+        itemBuilder: (context, index) {
+          final quote = quotes[index];
+          final quoteContent = quote['quote_content'];
+          final characterName = quote['character_name'];
+          return ListTile(
+            contentPadding: const EdgeInsets.all(16),
+            title: Text(quoteContent),
+            subtitle: Text(characterName),
+          );
+        },
+      ),
     );
   }
 }
