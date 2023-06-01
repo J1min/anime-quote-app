@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 
 class QuotePage extends StatelessWidget {
   final int quoteId;
@@ -11,7 +12,7 @@ class QuotePage extends StatelessWidget {
 
     try {
       final response = await dio.get(
-        'http://leehj050211.kro.kr/quote/$id',
+        'http://anime-quote.kro.kr/quote/$id',
         options: Options(responseType: ResponseType.json),
       );
       return response.data['quote'];
@@ -22,6 +23,13 @@ class QuotePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void copyToClipboard(String text) {
+      Clipboard.setData(ClipboardData(text: text));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('링크가 복사되었습니다.')),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Quote Details'),
@@ -42,6 +50,7 @@ class QuotePage extends StatelessWidget {
           final quote = snapshot.data as Map<String, dynamic>;
           final quoteContent = quote['quote_content'];
           final characterName = quote['character_name'];
+          final quoteLink = 'http://anime-quote.kro.kr/quote/$quoteId';
           return Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -64,6 +73,13 @@ class QuotePage extends StatelessWidget {
                     fontStyle: FontStyle.italic,
                   ),
                   textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                FloatingActionButton(
+                  onPressed: () {
+                    copyToClipboard(quoteLink);
+                  },
+                  child: const Icon(Icons.share),
                 ),
               ],
             ),

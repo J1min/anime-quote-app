@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     try {
       final response = await dio.get(
-        'http://leehj050211.kro.kr/quote',
+        'http://anime-quote.kro.kr/quote',
         options: Options(responseType: ResponseType.json),
       );
       final data = response.data['quote'];

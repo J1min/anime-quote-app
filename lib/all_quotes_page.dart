@@ -23,7 +23,7 @@ class _AllQuoteListPageState extends State<AllQuoteListPage> {
 
     try {
       final response = await dio.get(
-        'http://leehj050211.kro.kr/quote/all',
+        'http://anime-quote.kro.kr/quote/all',
         options: Options(responseType: ResponseType.json),
       );
       final data = response.data['list'];
