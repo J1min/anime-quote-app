@@ -14,15 +14,12 @@ class NewQuotePage extends StatelessWidget {
       "character_name": characterName,
     };
 
-    print(quoteData);
-
     try {
-      final response = await dio.post(
+      await dio.post(
         'http://anime-quote.kro.kr/quote',
         options: Options(responseType: ResponseType.json),
         data: quoteData,
       );
-      print('New quote added: ${response.data}');
     } catch (e) {
       throw Exception(e);
     }
