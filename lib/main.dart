@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'random_quote_page.dart';
 import 'all_quotes_page.dart';
 import 'favorite_quotes_page.dart';
+import 'new_quote_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -67,11 +68,13 @@ class _HomeScreenState extends State<HomeScreen> {
           // 두 번째 탭: 전체 보기
           const AllQuoteListPage(),
           // 세 번째 탭: 즐겨찾기 보기
-          const FavoriteQuotesPage(), // 추가한 부분
+          const FavoriteQuotesPage(),
+          NewQuotePage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
+        backgroundColor: Colors.blue,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
@@ -90,6 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             label: '즐겨찾기',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.plus_one),
+            label: '추가하기',
           ),
         ],
       ),
