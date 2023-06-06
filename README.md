@@ -1,4 +1,4 @@
-# quote
+## 애니 명대사 앱
 
 - 수업때 배운 기능 구현 : 30점 ✅
   - BottomNavigationBar ✅
