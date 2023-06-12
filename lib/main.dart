@@ -59,15 +59,12 @@ class _HomeScreenState extends State<HomeScreen> {
       body: IndexedStack(
         index: _currentIndex,
         children: [
-          // 첫 번째 탭: 랜덤 보기
           RandomQuotePage(
             quoteContent: quoteContent,
             characterName: characterName,
             quoteId: quoteId,
           ),
-          // 두 번째 탭: 전체 보기
           const AllQuoteListPage(),
-          // 세 번째 탭: 즐겨찾기 보기
           const FavoriteQuotesPage(),
           NewQuotePage(),
         ],
