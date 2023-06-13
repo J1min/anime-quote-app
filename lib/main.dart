@@ -79,22 +79,22 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.shuffle),
-            label: '랜덤 보기',
-          ),
+              icon: Icon(Icons.shuffle),
+              label: '랜덤 보기',
+              backgroundColor: Colors.blue),
           BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: '전체 보기',
-          ),
+              icon: Icon(Icons.list),
+              label: '전체 보기',
+              backgroundColor: Colors.blue),
           // 즐겨찾기 아이콘 및 라벨
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: '즐겨찾기',
-          ),
+              icon: Icon(Icons.favorite),
+              label: '즐겨찾기',
+              backgroundColor: Colors.blue),
           BottomNavigationBarItem(
-            icon: Icon(Icons.plus_one),
-            label: '추가하기',
-          ),
+              icon: Icon(Icons.plus_one),
+              label: '추가하기',
+              backgroundColor: Colors.blue),
         ],
       ),
       floatingActionButton: _currentIndex == 0
