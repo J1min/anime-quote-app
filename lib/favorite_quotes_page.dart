@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:quote/main.dart';
 import 'package:quote/quote_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -57,7 +59,7 @@ class _FavoriteQuotesPageState extends State<FavoriteQuotesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('내가 좋아하는 명언'),
+        title: const TitleTextWidget(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _updateFavoriteQuotes,
@@ -81,6 +83,19 @@ class _FavoriteQuotesPageState extends State<FavoriteQuotesPage> {
           );
         },
       ),
+    );
+  }
+}
+
+class TitleTextWidget extends StatelessWidget {
+  const TitleTextWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<CounterController>(
+      builder: (controller) {
+        return Text('Count: ${controller.count.value}');
+      },
     );
   }
 }

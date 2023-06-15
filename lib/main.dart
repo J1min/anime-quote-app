@@ -101,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ? FloatingActionButton(
               onPressed: () {
                 fetchQuote();
+                CounterController().increment();
               },
               child: const Icon(Icons.refresh),
             )
@@ -128,6 +129,7 @@ class CounterController extends GetxController {
   RxInt count = 0.obs;
 
   void increment() {
-    count.value++;
+    count.value = count.value + 1;
+    print(count.value);
   }
 }
