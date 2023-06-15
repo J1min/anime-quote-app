@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:quote/main.dart';
 import 'package:quote/quote_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -57,7 +58,7 @@ class _FavoriteQuotesPageState extends State<FavoriteQuotesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('내가 좋아하는 명언'),
+        title: Text(CounterController().count.toString()),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _updateFavoriteQuotes,

@@ -131,3 +131,4 @@ class CounterController extends GetxController {
     count.value++;
   }
 }
+
