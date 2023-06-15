@@ -133,3 +133,4 @@ class CounterController extends GetxController {
     print(count.value);
   }
 }
+
